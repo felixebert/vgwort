@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+			xmlns:vgw="http://vgwort.de/1.0/PixelService/xsd" 
+			targetNamespace="http://vgwort.de/1.0/PixelService/xsd"
+			elementFormDefault="qualified">
+    
+    <!-- MESSAGE DEFINITIONS -->
+    <xsd:element name="orderPixelRequest">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element name="count" type="vgw:int_1-Max"/>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+    
+    <xsd:element name="orderPixelResponse">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element name="domain" type="xsd:string"/>
+                <xsd:element name="orderDateTime" type="vgw:stringDateType"/>
+                <xsd:element name="pixels" type="vgw:Pixels"/>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+    
+    <xsd:element name="orderPixelFault">
+    	<xsd:complexType>
+	        <xsd:complexContent>
+	        	<xsd:extension base="vgw:tomFault">
+	        		<xsd:sequence>
+	            	    <xsd:element name="maxOrder" type="vgw:int_0-Max"/>
+	            	</xsd:sequence>
+	            </xsd:extension>
+	        </xsd:complexContent>
+        </xsd:complexType>
+    </xsd:element>
+    
+    <xsd:element name="pixelOverviewRequest">
+    	<xsd:complexType>
+       		<xsd:attribute name="offset" use="required" type="vgw:int_0-Max"/>
+       		<xsd:attribute name="type" use="required" type="vgw:pixelOverviewType"/>
+       	</xsd:complexType>
+    </xsd:element>
+        
+    <xsd:element name="pixelOverviewResponse">
+        <xsd:complexType>
+            <xsd:sequence minOccurs="0" maxOccurs="unbounded">
+            	<xsd:element name="privateIdentificationId" type="vgw:pixelIDType"/>
+            </xsd:sequence>
+            
+            <xsd:attribute name="offset" use="required" type="vgw:int_0-Max" />
+			<xsd:attribute name="amount" use="required" type="vgw:int_0-Max" />
+        </xsd:complexType>
+    </xsd:element>
+    
+    <xsd:element name="pixelOverviewFault">
+    	<xsd:complexType>
+	        <xsd:complexContent>
+	        	<xsd:extension base="vgw:tomFault"/>
+	        </xsd:complexContent>
+        </xsd:complexType>
+    </xsd:element>
+    
+    <!-- COMPLEX DATATYPES -->    
+    <xsd:complexType name="Pixels">
+        <xsd:sequence>
+            <xsd:element maxOccurs="unbounded" name="pixel" type="vgw:Pixel"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    
+    <xsd:complexType name="Pixel">
+        <xsd:attribute name="publicIdentificationId" type="vgw:pixelIDType"/>
+        <xsd:attribute name="privateIdentificationId" type="vgw:pixelIDType"/>
+    </xsd:complexType>
+    
+    <xsd:complexType name="tomFault">
+		<xsd:sequence>
+			<xsd:element name="errorcode" type="xsd:int"/> 
+			<xsd:element name="errormsg" type="xsd:string"/>
+		</xsd:sequence>		
+ 	</xsd:complexType>   	
+    
+    
+    <!-- SIMPLE DATATYPES -->
+    <xsd:simpleType name="pixelOverviewType">
+		<xsd:restriction base="xsd:token">
+			<xsd:enumeration value="MINDESTZUGRIFF" />
+			<xsd:enumeration value="ANTEILIGER_MINDESTZUGRIFF" />
+		</xsd:restriction>
+	</xsd:simpleType>
+	
+	<xsd:simpleType name="pixelIDType">
+		<xsd:restriction base="xsd:string">
+			<xsd:pattern value="[0-9A-Fa-f]{32}"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	
+	<xsd:simpleType name="int_0-Max">
+    	<xsd:restriction base="xsd:int">
+    		<xsd:minInclusive value="0"/>
+    	</xsd:restriction>
+   	</xsd:simpleType>
+   	
+   	<xsd:simpleType name="int_1-Max">
+    	<xsd:restriction base="xsd:int">
+    		<xsd:minExclusive value="0"/>
+    	</xsd:restriction>
+   	</xsd:simpleType>
+   	
+   	<xsd:simpleType name="stringDateType">
+		<xsd:restriction base="xsd:string">
+	    	<xsd:pattern value="[0-9]{12}"/>
+		</xsd:restriction>
+    </xsd:simpleType>
+    
+</xsd:schema>
