@@ -1,5 +1,5 @@
 
-package de.schreibfabrik.vgwort.soap;
+package de.schreibfabrik.vgwort.soap.pixel;
 
 import javax.xml.bind.annotation.XmlEnum;
 import javax.xml.bind.annotation.XmlType;

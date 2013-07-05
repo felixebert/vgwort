@@ -1,5 +1,5 @@
 
-package de.schreibfabrik.vgwort.soap;
+package de.schreibfabrik.vgwort.soap.pixel;
 
 import java.util.ArrayList;
 import java.util.List;

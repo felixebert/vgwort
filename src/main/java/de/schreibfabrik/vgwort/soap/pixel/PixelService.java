@@ -1,4 +1,4 @@
-package de.schreibfabrik.vgwort.soap;
+package de.schreibfabrik.vgwort.soap.pixel;
 
 import java.net.MalformedURLException;
 import java.net.URL;
