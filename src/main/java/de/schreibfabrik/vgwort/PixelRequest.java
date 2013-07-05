@@ -10,7 +10,6 @@ import javax.xml.ws.handler.MessageContext;
 
 import org.apache.axis.encoding.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Service;
 
@@ -20,19 +19,23 @@ import de.schreibfabrik.vgwort.soap.OrderPixelResponse;
 import de.schreibfabrik.vgwort.soap.Pixel;
 import de.schreibfabrik.vgwort.soap.PixelService;
 import de.schreibfabrik.vgwort.soap.Pixel_Type;
-import de.schreibfabrik.vgwort.xml.XmlService;
 
 @Service
 public class PixelRequest
 {
 	@Autowired
-	private XmlService xmlService;
+	private MetisConfig metisConfig;
 
-	@SuppressWarnings("resource")
 	public static void main(String[] args)
 	{
-		ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
+		ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
+		PixelRequest pixelRequest = context.getBean(PixelRequest.class);
+		pixelRequest.doRequest();
+		context.close();
+	}
 
+	public void doRequest()
+	{
 		PixelService pixelService = new PixelService();
 		Pixel pixelPort = pixelService.getPixelPort();
 
@@ -41,7 +44,7 @@ public class PixelRequest
 				"https://tom-test.vgwort.de/services/1.0/pixelService.wsdl");
 
 		Map<String, List<String>> headers = new HashMap<String, List<String>>();
-		String base64String = Base64.encode("xx:xx".getBytes());
+		String base64String = Base64.encode((metisConfig.getUser() + ":" + metisConfig.getPassword()).getBytes());
 		headers.put("Authorization", Collections.singletonList("Basic " + base64String));
 		req_ctx.put(MessageContext.HTTP_REQUEST_HEADERS, headers);
 
@@ -62,7 +65,6 @@ public class PixelRequest
 		}
 		catch (OrderPixelFault_Exception e)
 		{
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}

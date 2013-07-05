@@ -11,3 +11,4 @@ webdefault.xml
 log4j.xml
 webdefault.xml
 .externalToolBuilders
+dev.properties
