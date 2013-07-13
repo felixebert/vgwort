@@ -1,0 +1,26 @@
+{
+  "name": "vgwort",
+  "version": "0.0.0",
+  "description": "client for vg-wort api metis",
+  "homepage": "http://felixebert.de",
+  "bugs": "https://github.com/felixebert/vgwort/issues",
+  "author": {
+    "name": "Felix Ebert",
+    "email": "fe@if-core.de",
+    "url": "http://felixebert.de"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/felixebert/vgwort"
+  },
+  "licenses": [
+    {
+      "type": "MIT"
+    }
+  ],
+  "devDependencies": {
+    "grunt-contrib-jshint": "~0.2.0",
+    "grunt-contrib-nodeunit": "~0.1.2",
+    "grunt-contrib-watch": "~0.2.0"
+  }
+}

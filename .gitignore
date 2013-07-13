@@ -12,3 +12,6 @@ log4j.xml
 webdefault.xml
 .externalToolBuilders
 dev.properties
+.jshintrc
+.travis.yml
+node_modules/
