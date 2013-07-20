@@ -9,6 +9,7 @@
     "email": "fe@if-core.de",
     "url": "http://felixebert.de"
   },
+  "main": "lib",
   "repository": {
     "type": "git",
     "url": "https://github.com/felixebert/vgwort"
@@ -22,5 +23,10 @@
     "grunt-contrib-jshint": "~0.2.0",
     "grunt-contrib-nodeunit": "~0.1.2",
     "grunt-contrib-watch": "~0.2.0"
+  },
+  "dependencies": {
+    "soap": "~0.2.7",
+    "soap-js": "~0.2.11",
+    "node-soap-client": "~0.1.0"
   }
 }
