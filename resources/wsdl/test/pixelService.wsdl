@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="UTF-8"?><wsdl:definitions xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:schema="http://vgwort.de/1.0/PixelService/xsd" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://vgwort.de/1.0/PixelService" targetNamespace="http://vgwort.de/1.0/PixelService">
+  <wsdl:types xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+    <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:vgw="http://vgwort.de/1.0/PixelService/xsd" elementFormDefault="qualified" targetNamespace="http://vgwort.de/1.0/PixelService/xsd">
+    
+    <!-- MESSAGE DEFINITIONS -->
+    <xsd:element name="orderPixelRequest" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+        <xsd:complexType xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+            <xsd:sequence xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+                <xsd:element name="count" type="vgw:int_1-Max" xmlns:xsd="http://www.w3.org/2001/XMLSchema"/>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+    
+    <xsd:element name="orderPixelResponse" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+        <xsd:complexType xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+            <xsd:sequence xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+                <xsd:element name="domain" type="xsd:string" xmlns:xsd="http://www.w3.org/2001/XMLSchema"/>
+                <xsd:element name="orderDateTime" type="vgw:stringDateType" xmlns:xsd="http://www.w3.org/2001/XMLSchema"/>
+                <xsd:element name="pixels" type="vgw:Pixels" xmlns:xsd="http://www.w3.org/2001/XMLSchema"/>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+    
+    <xsd:element name="orderPixelFault" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    	<xsd:complexType xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+	        <xsd:complexContent xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+	        	<xsd:extension base="vgw:tomFault" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+	        		<xsd:sequence xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+	            	    <xsd:element name="maxOrder" type="vgw:int_0-Max" xmlns:xsd="http://www.w3.org/2001/XMLSchema"/>
+	            	</xsd:sequence>
+	            </xsd:extension>
+	        </xsd:complexContent>
+        </xsd:complexType>
+    </xsd:element>
+    
+    <xsd:element name="pixelOverviewRequest">
+    	<xsd:complexType>
+       		<xsd:attribute name="offset" type="vgw:int_0-Max" use="required"/>
+       		<xsd:attribute name="type" type="vgw:pixelOverviewType" use="required"/>
+       	</xsd:complexType>
+    </xsd:element>
+        
+    <xsd:element name="pixelOverviewResponse">
+        <xsd:complexType>
+            <xsd:sequence maxOccurs="unbounded" minOccurs="0">
+            	<xsd:element name="privateIdentificationId" type="vgw:pixelIDType"/>
+            </xsd:sequence>
+            <xsd:attribute name="offset" type="vgw:int_0-Max" use="required"/>
+			<xsd:attribute name="amount" type="vgw:int_0-Max" use="required"/>
+        </xsd:complexType>
+    </xsd:element>
+    
+    <xsd:element name="pixelOverviewFault">
+    	<xsd:complexType>
+	        <xsd:complexContent>
+	        	<xsd:extension base="vgw:tomFault"/>
+	        </xsd:complexContent>
+        </xsd:complexType>
+    </xsd:element>
+    
+    
+    <!-- COMPLEX DATATYPES -->    
+    <xsd:complexType name="Pixels" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+        <xsd:sequence xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+            <xsd:element maxOccurs="unbounded" name="pixel" type="vgw:Pixel" xmlns:xsd="http://www.w3.org/2001/XMLSchema"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    
+    <xsd:complexType name="Pixel" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+        <xsd:attribute name="publicIdentificationId" type="vgw:pixelIDType" xmlns:xsd="http://www.w3.org/2001/XMLSchema"/>
+        <xsd:attribute name="privateIdentificationId" type="vgw:pixelIDType" xmlns:xsd="http://www.w3.org/2001/XMLSchema"/>
+    </xsd:complexType>
+    
+    <xsd:complexType name="tomFault" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+		<xsd:sequence xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+			<xsd:element name="errorcode" type="xsd:int" xmlns:xsd="http://www.w3.org/2001/XMLSchema"/> 
+			<xsd:element name="errormsg" type="xsd:string" xmlns:xsd="http://www.w3.org/2001/XMLSchema"/>
+		</xsd:sequence>		
+ 	</xsd:complexType>   	
+    
+    
+    <!-- SIMPLE DATATYPES -->
+    
+     <xsd:simpleType name="pixelOverviewType">
+		<xsd:restriction base="xsd:token">
+			<xsd:enumeration value="MINDESTZUGRIFF"/>
+			<xsd:enumeration value="ANTEILIGER_MINDESTZUGRIFF"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	
+	<xsd:simpleType name="pixelIDType" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+		<xsd:restriction base="xsd:string" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+			<xsd:pattern value="[0-9A-Fa-f]{32}" xmlns:xsd="http://www.w3.org/2001/XMLSchema"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	
+	<xsd:simpleType name="int_0-Max" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    	<xsd:restriction base="xsd:int" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    		<xsd:minInclusive value="0" xmlns:xsd="http://www.w3.org/2001/XMLSchema"/>
+    	</xsd:restriction>
+   	</xsd:simpleType>
+   	
+   	<xsd:simpleType name="int_1-Max" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    	<xsd:restriction base="xsd:int" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    		<xsd:minExclusive value="0" xmlns:xsd="http://www.w3.org/2001/XMLSchema"/>
+    	</xsd:restriction>
+   	</xsd:simpleType>
+   	
+   	<xsd:simpleType name="stringDateType" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+		<xsd:restriction base="xsd:string" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+	    	<xsd:pattern value="[0-9]{12}" xmlns:xsd="http://www.w3.org/2001/XMLSchema"/>
+		</xsd:restriction>
+    </xsd:simpleType>
+    
+</xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="orderPixelFault" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+    <wsdl:part element="schema:orderPixelFault" name="orderPixelFault" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="orderPixelResponse" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+    <wsdl:part element="schema:orderPixelResponse" name="orderPixelResponse" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="orderPixelRequest" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+    <wsdl:part element="schema:orderPixelRequest" name="orderPixelRequest" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+    </wsdl:part>
+  </wsdl:message>
+   <wsdl:message name="pixelOverviewFault" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+    <wsdl:part element="schema:pixelOverviewFault" name="pixelOverviewFault" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="pixelOverviewResponse" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+    <wsdl:part element="schema:pixelOverviewResponse" name="pixelOverviewResponse" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="pixelOverviewRequest" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+    <wsdl:part element="schema:pixelOverviewRequest" name="pixelOverviewRequest" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+    </wsdl:part>
+  </wsdl:message>
+  
+  <wsdl:portType name="Pixel" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+    <wsdl:operation name="orderPixel" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+      <wsdl:input message="tns:orderPixelRequest" name="orderPixelRequest" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"/>
+      <wsdl:output message="tns:orderPixelResponse" name="orderPixelResponse" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"/>
+      <wsdl:fault message="tns:orderPixelFault" name="orderPixelFault" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"/>
+    </wsdl:operation>
+    <wsdl:operation name="pixelOverview" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+      <wsdl:input message="tns:pixelOverviewRequest" name="pixelOverviewRequest" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"/>
+      <wsdl:output message="tns:pixelOverviewResponse" name="pixelOverviewResponse" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"/>
+      <wsdl:fault message="tns:pixelOverviewFault" name="pixelOverviewFault" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"/>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="PixelBinding" type="tns:Pixel" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"/>
+    <wsdl:operation name="orderPixel" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+      <soap:operation soapAction="" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"/>
+      <wsdl:input name="orderPixelRequest" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+        <soap:body use="literal" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"/>
+      </wsdl:input>
+      <wsdl:output name="orderPixelResponse" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+        <soap:body use="literal" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"/>
+      </wsdl:output>
+      <wsdl:fault name="orderPixelFault" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+        <soap:fault name="orderPixelFault" use="literal" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="pixelOverview" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+      <soap:operation soapAction="" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"/>
+      <wsdl:input name="pixelOverviewRequest" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+        <soap:body use="literal" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"/>
+      </wsdl:input>
+      <wsdl:output name="pixelOverviewResponse" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+        <soap:body use="literal" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"/>
+      </wsdl:output>
+      <wsdl:fault name="pixelOverviewFault" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+        <soap:fault name="pixelOverviewFault" use="literal" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"/>
+      </wsdl:fault>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="PixelService" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+    <wsdl:port binding="tns:PixelBinding" name="PixelPort" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+      <soap:address location="https://tom-test.vgwort.de:443/services/1.0/PixelService" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>
