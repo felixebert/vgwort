@@ -15,3 +15,4 @@ dev.properties
 .jshintrc
 .travis.yml
 node_modules/
+vendor/
