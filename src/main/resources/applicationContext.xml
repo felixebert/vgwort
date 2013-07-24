@@ -7,9 +7,9 @@
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.2.xsd
 		http://www.springframework.org/schema/oxm http://www.springframework.org/schema/oxm/spring-oxm-3.2.xsd">
 
-	<context:component-scan base-package="de.schreibfabrik.vgwort" />
+	<context:component-scan base-package="de.ifcore.metis.client" />
 	
-	<bean id="metisConfig" class="de.schreibfabrik.vgwort.MetisConfig">
+	<bean id="metisConfig" class="de.ifcore.metis.client.MetisConfig">
 	    <constructor-arg name="user" value="${metis.user}" />
 		<constructor-arg name="password" value="${metis.password}" />
 	</bean>

@@ -2,17 +2,17 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-	<groupId>de.schreibfabrik</groupId>
-	<artifactId>vgwort</artifactId>
+	<groupId>de.ifcore.metis</groupId>
+	<artifactId>metis-client</artifactId>
 	<version>0.1</version>
 	<packaging>jar</packaging>
 
-	<name>vgwort</name>
-	<description>vg-wort api</description>
+	<name>METIS Client</name>
+	<description>VG Wort METIS API Client</description>
 
 	<organization>
-		<name>Die Schreibfabrik</name>
-		<url>http://www.schreibfabrik.de</url>
+		<name>IF-Core IT Services GmbH</name>
+		<url>http://if-core.de</url>
 	</organization>
 
 	<developers>
@@ -172,7 +172,7 @@
 	</dependencies>
 
 	<build>
-		<finalName>de.schreibfabrik.vgwort</finalName>
+		<finalName>de.ifcore.metis.client</finalName>
 		<filters>
 			<filter>build-type/${build.type}.properties</filter>
 		</filters>
