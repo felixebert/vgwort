@@ -34,7 +34,7 @@ import de.ifcore.metis.jaxws.pixel.Pixel_Type;
 public class PixelRequest
 {
 	@Autowired
-	private MetisConfig metisConfig;
+	private Authentication authentication;
 
 	public static void main(String[] args)
 	{
@@ -54,7 +54,7 @@ public class PixelRequest
 				"https://tom-test.vgwort.de/services/1.0/pixelService.wsdl");
 
 		Map<String, List<String>> headers = new HashMap<String, List<String>>();
-		String base64String = Base64.encode((metisConfig.getUser() + ":" + metisConfig.getPassword()).getBytes());
+		String base64String = Base64.encode((authentication.getUser() + ":" + authentication.getPassword()).getBytes());
 		headers.put("Authorization", Collections.singletonList("Basic " + base64String));
 		req_ctx.put(MessageContext.HTTP_REQUEST_HEADERS, headers);
 
@@ -90,7 +90,7 @@ public class PixelRequest
 				"https://tom-test.vgwort.de/services/1.0/messageService.wsdl");
 
 		Map<String, List<String>> headers = new HashMap<String, List<String>>();
-		String base64String = Base64.encode((metisConfig.getUser() + ":" + metisConfig.getPassword()).getBytes());
+		String base64String = Base64.encode((authentication.getUser() + ":" + authentication.getPassword()).getBytes());
 		headers.put("Authorization", Collections.singletonList("Basic " + base64String));
 		req_ctx.put(MessageContext.HTTP_REQUEST_HEADERS, headers);
 
