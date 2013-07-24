@@ -5,12 +5,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.inject.Inject;
 import javax.xml.ws.BindingProvider;
 import javax.xml.ws.handler.MessageContext;
 
 import org.apache.axis.encoding.Base64;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Service;
 
 import de.ifcore.metis.jaxws.message.Authors;
@@ -23,61 +22,22 @@ import de.ifcore.metis.jaxws.message.NewMessageRequest;
 import de.ifcore.metis.jaxws.message.NewMessageResponse;
 import de.ifcore.metis.jaxws.message.Parties;
 import de.ifcore.metis.jaxws.message.Text;
-import de.ifcore.metis.jaxws.pixel.OrderPixelFault_Exception;
-import de.ifcore.metis.jaxws.pixel.OrderPixelRequest;
-import de.ifcore.metis.jaxws.pixel.OrderPixelResponse;
-import de.ifcore.metis.jaxws.pixel.Pixel;
-import de.ifcore.metis.jaxws.pixel.PixelService;
-import de.ifcore.metis.jaxws.pixel.Pixel_Type;
 
 @Service
-public class PixelRequest
+public class MetisClient
 {
-	@Autowired
-	private Authentication authentication;
+	private final MetisEndpoint endPoint;
 
-	public static void main(String[] args)
+	@Inject
+	public MetisClient(MetisEndpoint endPoint)
 	{
-		ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
-		PixelRequest pixelRequest = context.getBean(PixelRequest.class);
-		pixelRequest.doRequest();
-		context.close();
+		this.endPoint = endPoint;
 	}
 
-	public void doRequest()
+	public void orderPixels(int count)
 	{
-		PixelService pixelService = new PixelService();
-		Pixel pixelPort = pixelService.getPixelPort();
-
-		Map<String, Object> req_ctx = ((BindingProvider)pixelPort).getRequestContext();
-		req_ctx.put(BindingProvider.ENDPOINT_ADDRESS_PROPERTY,
-				"https://tom-test.vgwort.de/services/1.0/pixelService.wsdl");
-
-		Map<String, List<String>> headers = new HashMap<String, List<String>>();
-		String base64String = Base64.encode((authentication.getUser() + ":" + authentication.getPassword()).getBytes());
-		headers.put("Authorization", Collections.singletonList("Basic " + base64String));
-		req_ctx.put(MessageContext.HTTP_REQUEST_HEADERS, headers);
-
-		try
-		{
-			OrderPixelRequest orderPixelRequest = new OrderPixelRequest();
-			orderPixelRequest.setCount(1);
-
-			OrderPixelResponse pixelResponse = pixelPort.orderPixel(orderPixelRequest);
-
-			System.out.println(pixelResponse);
-			System.out.println(pixelResponse.getPixels());
-			System.out.println(pixelResponse.getPixels().getPixel());
-			for (Pixel_Type pixel : pixelResponse.getPixels().getPixel())
-			{
-				System.out.println("public: " + pixel.getPublicIdentificationId());
-				System.out.println("private: " + pixel.getPrivateIdentificationId());
-			}
-		}
-		catch (OrderPixelFault_Exception e)
-		{
-			e.printStackTrace();
-		}
+		PixelClient client = new PixelClient(endPoint);
+		client.order(1);
 	}
 
 	public void submitText()
@@ -90,7 +50,7 @@ public class PixelRequest
 				"https://tom-test.vgwort.de/services/1.0/messageService.wsdl");
 
 		Map<String, List<String>> headers = new HashMap<String, List<String>>();
-		String base64String = Base64.encode((authentication.getUser() + ":" + authentication.getPassword()).getBytes());
+		String base64String = Base64.encode((endPoint.getUser() + ":" + endPoint.getPassword()).getBytes());
 		headers.put("Authorization", Collections.singletonList("Basic " + base64String));
 		req_ctx.put(MessageContext.HTTP_REQUEST_HEADERS, headers);
 

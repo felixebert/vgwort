@@ -9,7 +9,7 @@
 
 	<context:component-scan base-package="de.ifcore.metis.client" />
 	
-	<bean id="authentication" class="de.ifcore.metis.client.Authentication">
+	<bean id="metisEndpoint" class="de.ifcore.metis.client.MetisEndpoint">
 	    <constructor-arg name="user" value="${metis.user}" />
 		<constructor-arg name="password" value="${metis.password}" />
 	</bean>
