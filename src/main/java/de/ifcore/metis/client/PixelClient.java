@@ -11,14 +11,14 @@ import de.ifcore.metis.jaxws.pixel.Pixel_Type;
 
 public class PixelClient
 {
-	private static final String wsdlPath = "/services/1.0/pixelService.wsdl";
-
 	private final Pixel port;
 
-	public PixelClient(MetisEndpoint endPoint)
+	public PixelClient(MetisEndpoint endpoint)
 	{
 		this.port = new PixelService().getPixelPort();
-		endPoint.configure((BindingProvider)port, endPoint.buildUrl(wsdlPath));
+
+		String wsdlUrl = endpoint.buildUrl("/services/1.0/pixelService.wsdl");
+		endpoint.configure((BindingProvider)port, wsdlUrl);
 	}
 
 	public void order(int count)

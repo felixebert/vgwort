@@ -9,11 +9,8 @@ import javax.xml.ws.WebFault;
 @WebFault(name = "pixelOverviewFault", targetNamespace = "http://vgwort.de/1.0/PixelService/xsd")
 public class PixelOverviewFault_Exception extends Exception
 {
-
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 2198655060481231423L;
+
 	/**
 	 * Java type that goes as soapenv:Fault detail element.
 	 * 
