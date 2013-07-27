@@ -8,7 +8,7 @@ import java.util.Map;
 import javax.xml.ws.BindingProvider;
 import javax.xml.ws.handler.MessageContext;
 
-import org.apache.axis.encoding.Base64;
+import org.apache.commons.codec.binary.Base64;
 
 public class MetisEndpoint
 {
@@ -52,7 +52,7 @@ public class MetisEndpoint
 	protected Map<String, List<String>> generateRequestHeaders()
 	{
 		Map<String, List<String>> headers = new HashMap<String, List<String>>();
-		String base64String = Base64.encode((user + ":" + password).getBytes());
+		String base64String = Base64.encodeBase64String((user + ":" + password).getBytes());
 		headers.put("Authorization", Collections.singletonList("Basic " + base64String));
 		return Collections.unmodifiableMap(headers);
 	}

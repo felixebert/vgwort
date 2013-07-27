@@ -2,7 +2,7 @@ package de.ifcore.metis.client;
 
 import javax.xml.ws.BindingProvider;
 
-import org.apache.axis.encoding.Base64;
+import org.apache.commons.codec.binary.Base64;
 
 import de.ifcore.metis.jaxws.message.Authors;
 import de.ifcore.metis.jaxws.message.Involved;
@@ -34,7 +34,7 @@ public class MessageClient
 			messageText.setShorttext("Lösung von GTA IV");
 			messageText.setLyric(false);
 			Text text = new Text();
-			text.setPlainText(Base64.encode("test".getBytes()).getBytes());
+			text.setPlainText(Base64.encodeBase64String("test".getBytes()).getBytes());
 			messageText.setText(text);
 
 			Involved involved = new Involved();

@@ -1,7 +1,6 @@
 package de.ifcore.metis.client;
 
-import javax.inject.Inject;
-
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -9,7 +8,7 @@ public class MetisClient
 {
 	private final MetisEndpoint endpoint;
 
-	@Inject
+	@Autowired
 	public MetisClient(MetisEndpoint endpoint)
 	{
 		this.endpoint = endpoint;
