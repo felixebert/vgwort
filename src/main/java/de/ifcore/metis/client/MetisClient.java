@@ -1,14 +1,14 @@
 package de.ifcore.metis.client;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import javax.inject.Inject;
+import javax.inject.Named;
 
-@Service
+@Named
 public class MetisClient
 {
 	private final MetisEndpoint endpoint;
 
-	@Autowired
+	@Inject
 	public MetisClient(MetisEndpoint endpoint)
 	{
 		this.endpoint = endpoint;
