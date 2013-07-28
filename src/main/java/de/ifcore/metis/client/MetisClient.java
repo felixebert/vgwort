@@ -3,6 +3,9 @@ package de.ifcore.metis.client;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import de.ifcore.metis.client.message.MessageClient;
+import de.ifcore.metis.client.pixel.PixelClient;
+
 @Named
 public class MetisClient
 {
