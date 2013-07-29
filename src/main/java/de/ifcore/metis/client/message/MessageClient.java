@@ -41,7 +41,7 @@ public class MessageClient
 		authors.getAuthor().add(involved);
 
 		NewMessageRequest messageRequest = new NewMessageRequest();
-		messageRequest.setPrivateidentificationid("aa5577ed95c745cf9c4f77a5e9220505");
+		messageRequest.setPrivateidentificationid("");
 		messageRequest.setMessagetext(messageText);
 
 		try
