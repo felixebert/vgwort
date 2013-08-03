@@ -1,9 +1,12 @@
 package de.ifcore.metis.client;
 
+import java.util.List;
+
 import javax.inject.Inject;
 import javax.inject.Named;
 
 import de.ifcore.metis.client.message.MessageClient;
+import de.ifcore.metis.client.pixel.Pixel;
 import de.ifcore.metis.client.pixel.PixelClient;
 
 @Named
@@ -17,10 +20,10 @@ public class MetisClient
 		this.endpoint = endpoint;
 	}
 
-	public void orderPixels(int count)
+	public List<Pixel> orderPixels(int count)
 	{
 		PixelClient client = new PixelClient(endpoint);
-		client.order(count);
+		return client.order(count);
 	}
 
 	public void submitText()
