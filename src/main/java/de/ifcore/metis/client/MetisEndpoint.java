@@ -12,22 +12,22 @@ import org.apache.commons.codec.binary.Base64;
 
 public class MetisEndpoint
 {
-	private final String url;
+	private final String hostname;
 	private final String user;
 	private final String password;
 
 	private transient Map<String, List<String>> requestHeaders;
 
-	public MetisEndpoint(String url, String user, String password)
+	public MetisEndpoint(String hostname, String user, String password)
 	{
-		this.url = url;
+		this.hostname = hostname;
 		this.user = user;
 		this.password = password;
 	}
 
-	public String getUrl()
+	public String getHostname()
 	{
-		return url;
+		return hostname;
 	}
 
 	public String getUser()
@@ -66,6 +66,6 @@ public class MetisEndpoint
 
 	public String buildUrl(String path)
 	{
-		return url + path;
+		return "https://" + hostname + path;
 	}
 }
