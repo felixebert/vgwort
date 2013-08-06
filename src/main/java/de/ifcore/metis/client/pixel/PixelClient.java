@@ -6,6 +6,9 @@ import java.util.List;
 
 import javax.xml.ws.BindingProvider;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import de.ifcore.metis.client.MetisEndpoint;
 import de.ifcore.metis.client.exception.MetisClientException;
 import de.ifcore.metis.client.pixel.jaxws.OrderPixelFault_Exception;
@@ -16,6 +19,8 @@ import de.ifcore.metis.client.pixel.jaxws.Pixel_Type;
 
 public class PixelClient
 {
+	private static final Logger log = LoggerFactory.getLogger(PixelClient.class);
+
 	private final de.ifcore.metis.client.pixel.jaxws.Pixel port;
 
 	public PixelClient(MetisEndpoint endpoint)
@@ -28,6 +33,7 @@ public class PixelClient
 
 	public List<Pixel> order(int count)
 	{
+		log.debug("ordering " + count + " pixels");
 		OrderPixelRequest request = new OrderPixelRequest();
 		request.setCount(count);
 
