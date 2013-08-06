@@ -42,9 +42,11 @@ public class PixelClient
 			OrderPixelResponse response = port.orderPixel(request);
 
 			List<Pixel> pixels = new ArrayList<>();
-			for (Pixel_Type pixel : response.getPixels().getPixel())
+			for (Pixel_Type pixelEntry : response.getPixels().getPixel())
 			{
-				pixels.add(new Pixel(pixel.getPublicIdentificationId(), pixel.getPrivateIdentificationId()));
+				Pixel pixel = new Pixel(pixelEntry.getPublicIdentificationId(),
+						pixelEntry.getPrivateIdentificationId(), response.getDomain());
+				pixels.add(pixel);
 			}
 			return Collections.unmodifiableList(pixels);
 		}

@@ -2,29 +2,35 @@ package de.ifcore.metis.client.pixel;
 
 public class Pixel
 {
-	private final String publicIdentificationId;
-	private final String privateIdentificationId;
+	private final String publicId;
+	private final String privateId;
+	private final String host;
 
-	public Pixel(String publicIdentificationId, String privateIdentificationId)
+	public Pixel(String publicId, String privateId, String host)
 	{
-		this.publicIdentificationId = publicIdentificationId;
-		this.privateIdentificationId = privateIdentificationId;
+		this.publicId = publicId;
+		this.privateId = privateId;
+		this.host = host;
 	}
 
 	public String getPublicIdentificationId()
 	{
-		return publicIdentificationId;
+		return publicId;
 	}
 
 	public String getPrivateIdentificationId()
 	{
-		return privateIdentificationId;
+		return privateId;
+	}
+
+	public String getHost()
+	{
+		return host;
 	}
 
 	@Override
 	public String toString()
 	{
-		return "Pixel [publicIdentificationId=" + publicIdentificationId + ", privateIdentificationId="
-				+ privateIdentificationId + "]";
+		return "Pixel [publicId=" + publicId + ", privateId=" + privateId + ", host=" + host + "]";
 	}
 }
