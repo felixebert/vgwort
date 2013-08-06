@@ -13,12 +13,12 @@ public class Pixel
 		this.host = host;
 	}
 
-	public String getPublicIdentificationId()
+	public String getPublicId()
 	{
 		return publicId;
 	}
 
-	public String getPrivateIdentificationId()
+	public String getPrivateId()
 	{
 		return privateId;
 	}
