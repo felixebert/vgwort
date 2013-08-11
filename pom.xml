@@ -41,6 +41,10 @@
 		<url>https://github.com/felixebert/vgwort-metis-client</url>
 		<connection>git@github.com:felixebert/vgwort-metis-client.git</connection>
 	</scm>
+	
+	<properties>
+	    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	</properties>
 
 	<dependencies>
 		<!-- Utils -->
