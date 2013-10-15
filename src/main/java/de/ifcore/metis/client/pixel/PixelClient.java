@@ -11,17 +11,17 @@ import org.slf4j.LoggerFactory;
 
 import de.ifcore.metis.client.MetisEndpoint;
 import de.ifcore.metis.client.exception.MetisClientException;
-import de.ifcore.metis.client.pixel.jaxws.OrderPixelFault_Exception;
-import de.ifcore.metis.client.pixel.jaxws.OrderPixelRequest;
-import de.ifcore.metis.client.pixel.jaxws.OrderPixelResponse;
-import de.ifcore.metis.client.pixel.jaxws.PixelService;
-import de.ifcore.metis.client.pixel.jaxws.Pixel_Type;
+import de.ifcore.metis.jaxws.OrderPixelFault_Exception;
+import de.ifcore.metis.jaxws.OrderPixelRequest;
+import de.ifcore.metis.jaxws.OrderPixelResponse;
+import de.ifcore.metis.jaxws.PixelService;
+import de.ifcore.metis.jaxws.Pixel_Type;
 
 public class PixelClient
 {
 	private static final Logger log = LoggerFactory.getLogger(PixelClient.class);
 
-	private final de.ifcore.metis.client.pixel.jaxws.Pixel port;
+	private final de.ifcore.metis.jaxws.Pixel port;
 
 	public PixelClient(MetisEndpoint endpoint)
 	{

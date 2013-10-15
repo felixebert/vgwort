@@ -5,15 +5,15 @@ import javax.xml.ws.BindingProvider;
 import org.apache.commons.codec.binary.Base64;
 
 import de.ifcore.metis.client.MetisEndpoint;
-import de.ifcore.metis.client.message.jaxws.Authors;
-import de.ifcore.metis.client.message.jaxws.Involved;
-import de.ifcore.metis.client.message.jaxws.Message;
-import de.ifcore.metis.client.message.jaxws.MessageService;
-import de.ifcore.metis.client.message.jaxws.MessageText;
-import de.ifcore.metis.client.message.jaxws.NewMessageFault_Exception;
-import de.ifcore.metis.client.message.jaxws.NewMessageRequest;
-import de.ifcore.metis.client.message.jaxws.NewMessageResponse;
-import de.ifcore.metis.client.message.jaxws.Text;
+import de.ifcore.metis.jaxws.Authors;
+import de.ifcore.metis.jaxws.Involved;
+import de.ifcore.metis.jaxws.Message;
+import de.ifcore.metis.jaxws.MessageService;
+import de.ifcore.metis.jaxws.MessageText;
+import de.ifcore.metis.jaxws.NewMessageFault_Exception;
+import de.ifcore.metis.jaxws.NewMessageRequest;
+import de.ifcore.metis.jaxws.NewMessageResponse;
+import de.ifcore.metis.jaxws.Text;
 
 public class MessageClient
 {

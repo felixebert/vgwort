@@ -15,7 +15,7 @@ public class PixelClientIntegrationTest
 	@Ignore
 	public void testOrder()
 	{
-		MetisEndpoint endpoint = new MetisEndpoint("tom.vgwort.de", "user", "pw");
+		MetisEndpoint endpoint = new MetisEndpoint("tom-test.vgwort.de", "user", "pw");
 		PixelClient client = new PixelClient(endpoint);
 
 		List<Pixel> pixels = client.order(1);
