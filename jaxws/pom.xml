@@ -31,6 +31,7 @@
 								<wsdlUrl>https://tom-test.vgwort.de/services/1.0/pixelService.wsdl</wsdlUrl>
 								<wsdlUrl>https://tom.vgwort.de/services/1.3/messageService.wsdl</wsdlUrl>
 							</wsdlUrls>
+							<sourceDestDir>src/main/java</sourceDestDir>
 							<packageName>de.ifcore.metis.jaxws</packageName>
 							<xnocompile>false</xnocompile>
 						</configuration>
