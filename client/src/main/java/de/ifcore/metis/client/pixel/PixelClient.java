@@ -11,17 +11,16 @@ import org.slf4j.LoggerFactory;
 
 import de.ifcore.metis.client.MetisEndpoint;
 import de.ifcore.metis.client.exception.MetisClientException;
-import de.ifcore.metis.jaxws.OrderPixelFault_Exception;
-import de.ifcore.metis.jaxws.OrderPixelRequest;
-import de.ifcore.metis.jaxws.OrderPixelResponse;
-import de.ifcore.metis.jaxws.PixelService;
-import de.ifcore.metis.jaxws.Pixel_Type;
+import de.vgwort._1_0.pixelservice.OrderPixelFault;
+import de.vgwort._1_0.pixelservice.PixelService;
+import de.vgwort._1_0.pixelservice.xsd.OrderPixelRequest;
+import de.vgwort._1_0.pixelservice.xsd.OrderPixelResponse;
 
 public class PixelClient
 {
 	private static final Logger log = LoggerFactory.getLogger(PixelClient.class);
 
-	private final de.ifcore.metis.jaxws.Pixel port;
+	private final de.vgwort._1_0.pixelservice.Pixel port;
 
 	public PixelClient(MetisEndpoint endpoint)
 	{
@@ -42,7 +41,7 @@ public class PixelClient
 			OrderPixelResponse response = port.orderPixel(request);
 
 			List<Pixel> pixels = new ArrayList<>();
-			for (Pixel_Type pixelEntry : response.getPixels().getPixel())
+			for (de.vgwort._1_0.pixelservice.xsd.Pixel pixelEntry : response.getPixels().getPixel())
 			{
 				Pixel pixel = new Pixel(pixelEntry.getPublicIdentificationId(),
 						pixelEntry.getPrivateIdentificationId(), response.getDomain());
@@ -50,7 +49,7 @@ public class PixelClient
 			}
 			return Collections.unmodifiableList(pixels);
 		}
-		catch (OrderPixelFault_Exception e)
+		catch (OrderPixelFault e)
 		{
 			throw new MetisClientException(e);
 		}
