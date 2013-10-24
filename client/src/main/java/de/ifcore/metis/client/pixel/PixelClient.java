@@ -4,11 +4,10 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import javax.xml.ws.BindingProvider;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import de.ifcore.metis.client.AbstractServiceClient;
 import de.ifcore.metis.client.MetisEndpoint;
 import de.ifcore.metis.client.exception.MetisClientException;
 import de.vgwort._1_0.pixelservice.OrderPixelFault;
@@ -16,18 +15,18 @@ import de.vgwort._1_0.pixelservice.PixelService;
 import de.vgwort._1_0.pixelservice.xsd.OrderPixelRequest;
 import de.vgwort._1_0.pixelservice.xsd.OrderPixelResponse;
 
-public class PixelClient
+public class PixelClient extends AbstractServiceClient<de.vgwort._1_0.pixelservice.Pixel>
 {
 	private static final Logger log = LoggerFactory.getLogger(PixelClient.class);
 
-	private final de.vgwort._1_0.pixelservice.Pixel port;
-
 	public PixelClient(MetisEndpoint endpoint)
 	{
-		this.port = new PixelService().getPixelPort();
+		super(new PixelService().getPixelPort(), endpoint, "/services/1.0/pixelService.wsdl");
+	}
 
-		String wsdlUrl = endpoint.buildUrl("/services/1.0/pixelService.wsdl");
-		endpoint.configure((BindingProvider)port, wsdlUrl);
+	protected PixelClient(de.vgwort._1_0.pixelservice.Pixel port)
+	{
+		super(port);
 	}
 
 	public List<Pixel> order(int count)

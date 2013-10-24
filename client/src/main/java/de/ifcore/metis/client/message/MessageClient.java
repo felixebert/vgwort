@@ -1,7 +1,6 @@
 package de.ifcore.metis.client.message;
 
-import javax.xml.ws.BindingProvider;
-
+import de.ifcore.metis.client.AbstractServiceClient;
 import de.ifcore.metis.client.MetisEndpoint;
 import de.vgwort._1_3.messageservice.Message;
 import de.vgwort._1_3.messageservice.MessageService;
@@ -9,16 +8,16 @@ import de.vgwort._1_3.messageservice.NewMessageFault;
 import de.vgwort._1_3.messageservice.xsd.NewMessageRequest;
 import de.vgwort._1_3.messageservice.xsd.NewMessageResponse;
 
-public class MessageClient
+public class MessageClient extends AbstractServiceClient<Message>
 {
-	private final Message port;
-
 	public MessageClient(MetisEndpoint endpoint)
 	{
-		this.port = new MessageService().getMessagePort();
+		super(new MessageService().getMessagePort(), endpoint, "/services/1.0/messageService.wsdl");
+	}
 
-		String wsdlUrl = endpoint.buildUrl("/services/1.0/messageService.wsdl");
-		endpoint.configure((BindingProvider)port, wsdlUrl);
+	protected MessageClient(Message port)
+	{
+		super(port);
 	}
 
 	public void submit(NewMessageRequest request)
