@@ -14,7 +14,7 @@ import de.vgwort._1_3.messageservice.xsd.Text;
 import de.vgwort._1_3.messageservice.xsd.Webrange;
 import de.vgwort._1_3.messageservice.xsd.Webranges;
 
-public class MessageBuilder
+public class MessageRequestBuilder
 {
 	private String privatePixelId;
 	private String title;

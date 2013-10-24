@@ -18,7 +18,7 @@ import de.vgwort._1_0.pixelservice.xsd.OrderPixelResponse;
 import de.vgwort._1_0.pixelservice.xsd.Pixel;
 import de.vgwort._1_0.pixelservice.xsd.Pixels;
 
-public class PixelClientTest
+public class OrderPixelTest
 {
 	private de.vgwort._1_0.pixelservice.Pixel port;
 
@@ -42,7 +42,7 @@ public class PixelClientTest
 	}
 
 	@Test(expected = MetisException.class)
-	public void shouldThrowExceptionOnServerError() throws OrderPixelFault
+	public void shouldThrowMetisException() throws OrderPixelFault
 	{
 		when(port.orderPixel(Mockito.any(OrderPixelRequest.class))).thenThrow(new OrderPixelFault("serror", null));
 		PixelClient client = new PixelClient(port);

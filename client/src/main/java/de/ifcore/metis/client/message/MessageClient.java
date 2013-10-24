@@ -33,6 +33,7 @@ public class MessageClient extends AbstractServiceClient<Message>
 	 *             <li>an validation / business error reported by metis</li>
 	 *             <li>connection problems</li>
 	 *             </ul>
+	 * @see MessageRequestBuilder
 	 */
 	public void submit(NewMessageRequest request)
 	{

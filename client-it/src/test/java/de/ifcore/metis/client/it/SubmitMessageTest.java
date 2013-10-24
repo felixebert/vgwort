@@ -6,7 +6,7 @@ import org.junit.Test;
 import de.ifcore.metis.client.MetisEndpoint;
 import de.ifcore.metis.client.message.MessageClient;
 
-public class MessageClientTest extends AbstractClientTest
+public class SubmitMessageTest extends AbstractClientTest
 {
 	private MetisEndpoint endpoint;
 
@@ -17,7 +17,7 @@ public class MessageClientTest extends AbstractClientTest
 	}
 
 	@Test
-	public void testOrder()
+	public void testSubmit()
 	{
 		MessageClient client = new MessageClient(endpoint);
 		client.submit(null);

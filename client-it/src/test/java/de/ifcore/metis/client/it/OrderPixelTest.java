@@ -12,7 +12,7 @@ import de.ifcore.metis.client.exception.MetisException;
 import de.ifcore.metis.client.pixel.Pixel;
 import de.ifcore.metis.client.pixel.PixelClient;
 
-public class PixelClientTest extends AbstractClientTest
+public class OrderPixelTest extends AbstractClientTest
 {
 	private PixelClient client;
 

@@ -5,7 +5,6 @@ import java.util.List;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import de.ifcore.metis.client.message.MessageBuilder;
 import de.ifcore.metis.client.message.MessageClient;
 import de.ifcore.metis.client.pixel.Pixel;
 import de.ifcore.metis.client.pixel.PixelClient;
@@ -24,14 +23,16 @@ public class MetisClient
 		this.messageClient = new MessageClient(endpoint);
 	}
 
+	/**
+	 * @see PixelClient#order(int)
+	 */
 	public List<Pixel> orderPixels(int count)
 	{
 		return pixelClient.order(count);
 	}
 
 	/**
-	 * @param request
-	 * @see MessageBuilder
+	 * @see MessageClient#submit(NewMessageRequest)
 	 */
 	public void submitMessage(NewMessageRequest request)
 	{
