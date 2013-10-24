@@ -2,7 +2,6 @@ package de.ifcore.metis.client.pixel;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.fail;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -42,21 +41,12 @@ public class PixelClientTest
 		assertEquals("456", result.get(0).getPublicId());
 	}
 
-	@Test
+	@Test(expected = MetisException.class)
 	public void shouldThrowExceptionOnServerError() throws OrderPixelFault
 	{
 		when(port.orderPixel(Mockito.any(OrderPixelRequest.class))).thenThrow(new OrderPixelFault("serror", null));
 		PixelClient client = new PixelClient(port);
-
-		try
-		{
-			client.order(1);
-			fail("should throw MetisException");
-		}
-		catch (Exception e)
-		{
-			assertEquals(MetisException.class, e.getClass());
-		}
+		client.order(1);
 	}
 
 	private Pixel mockPixel()

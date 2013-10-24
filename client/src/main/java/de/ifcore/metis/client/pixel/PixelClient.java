@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import javax.xml.ws.WebServiceException;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -30,11 +32,17 @@ public class PixelClient extends AbstractServiceClient<de.vgwort._1_0.pixelservi
 	}
 
 	/**
+	 * sends an {@link OrderPixelRequest} via SOAP to METIS
+	 * 
 	 * @param count
 	 *            number of pixels to order
 	 * @return list of ordered pixels
 	 * @throws MetisException
-	 *             in case of an server-error
+	 *             in case of ...
+	 *             <ul>
+	 *             <li>an validation / business error reported by metis</li>
+	 *             <li>connection problems</li>
+	 *             </ul>
 	 */
 	public List<Pixel> order(int count)
 	{
@@ -55,7 +63,7 @@ public class PixelClient extends AbstractServiceClient<de.vgwort._1_0.pixelservi
 			}
 			return Collections.unmodifiableList(pixels);
 		}
-		catch (OrderPixelFault e)
+		catch (OrderPixelFault | WebServiceException e)
 		{
 			throw new MetisException(e);
 		}
