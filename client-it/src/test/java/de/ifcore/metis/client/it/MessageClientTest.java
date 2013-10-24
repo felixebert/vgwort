@@ -20,6 +20,6 @@ public class MessageClientTest extends AbstractClientTest
 	public void testOrder()
 	{
 		MessageClient client = new MessageClient(endpoint);
-		client.submit();
+		client.submit(null);
 	}
 }

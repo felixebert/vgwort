@@ -5,30 +5,36 @@ import java.util.List;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import de.ifcore.metis.client.message.MessageBuilder;
 import de.ifcore.metis.client.message.MessageClient;
 import de.ifcore.metis.client.pixel.Pixel;
 import de.ifcore.metis.client.pixel.PixelClient;
+import de.vgwort._1_3.messageservice.xsd.NewMessageRequest;
 
 @Named
 public class MetisClient
 {
-	private final MetisEndpoint endpoint;
+	private final PixelClient pixelClient;
+	private final MessageClient messageClient;
 
 	@Inject
 	public MetisClient(MetisEndpoint endpoint)
 	{
-		this.endpoint = endpoint;
+		this.pixelClient = new PixelClient(endpoint);
+		this.messageClient = new MessageClient(endpoint);
 	}
 
 	public List<Pixel> orderPixels(int count)
 	{
-		PixelClient client = new PixelClient(endpoint);
-		return client.order(count);
+		return pixelClient.order(count);
 	}
 
-	public void submitText()
+	/**
+	 * @param request
+	 * @see MessageBuilder
+	 */
+	public void submitMessage(NewMessageRequest request)
 	{
-		MessageClient client = new MessageClient(endpoint);
-		client.submit();
+		messageClient.submit(request);
 	}
 }
