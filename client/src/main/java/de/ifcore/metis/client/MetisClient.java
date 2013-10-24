@@ -29,6 +29,6 @@ public class MetisClient
 	public void submitText()
 	{
 		MessageClient client = new MessageClient(endpoint);
-		client.submitText();
+		client.submit();
 	}
 }

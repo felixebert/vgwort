@@ -3,8 +3,6 @@ package de.ifcore.metis.client.message;
 import javax.xml.ws.BindingProvider;
 
 import org.apache.commons.codec.binary.Base64;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import de.ifcore.metis.client.MetisEndpoint;
 import de.vgwort._1_3.messageservice.Message;
@@ -23,7 +21,6 @@ import de.vgwort._1_3.messageservice.xsd.Webranges;
 
 public class MessageClient
 {
-	private static final Logger log = LoggerFactory.getLogger(MessageClient.class);
 	private final Message port;
 
 	public MessageClient(MetisEndpoint endpoint)
@@ -34,7 +31,7 @@ public class MessageClient
 		endpoint.configure((BindingProvider)port, wsdlUrl);
 	}
 
-	public void submitText()
+	public void submit()
 	{
 		ObjectFactory objectFactory = new ObjectFactory();
 
