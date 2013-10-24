@@ -9,7 +9,7 @@ import org.slf4j.LoggerFactory;
 
 import de.ifcore.metis.client.AbstractServiceClient;
 import de.ifcore.metis.client.MetisEndpoint;
-import de.ifcore.metis.client.exception.MetisClientException;
+import de.ifcore.metis.client.exception.MetisException;
 import de.vgwort._1_0.pixelservice.OrderPixelFault;
 import de.vgwort._1_0.pixelservice.PixelService;
 import de.vgwort._1_0.pixelservice.xsd.OrderPixelRequest;
@@ -29,6 +29,13 @@ public class PixelClient extends AbstractServiceClient<de.vgwort._1_0.pixelservi
 		super(port);
 	}
 
+	/**
+	 * @param count
+	 *            number of pixels to order
+	 * @return list of ordered pixels
+	 * @throws MetisException
+	 *             in case of an server-error
+	 */
 	public List<Pixel> order(int count)
 	{
 		log.debug("ordering " + count + " pixels");
@@ -50,7 +57,7 @@ public class PixelClient extends AbstractServiceClient<de.vgwort._1_0.pixelservi
 		}
 		catch (OrderPixelFault e)
 		{
-			throw new MetisClientException(e);
+			throw new MetisException(e);
 		}
 	}
 }
