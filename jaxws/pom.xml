@@ -3,10 +3,10 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<parent>
-                <groupId>de.ifcore.metis</groupId>
-                <artifactId>metis-client-parent</artifactId>
-                <version>0.1</version>
-        </parent>
+		<groupId>de.ifcore.metis</groupId>
+		<artifactId>metis-client-parent</artifactId>
+		<version>0.1</version>
+	</parent>
 
 	<artifactId>metis-jaxws</artifactId>
 	<packaging>jar</packaging>
@@ -16,6 +16,26 @@
 	<build>
 		<finalName>de.ifcore.metis.jaxws</finalName>
 		<plugins>
+			<plugin>
+				<artifactId>maven-antrun-plugin</artifactId>
+				<version>1.6</version>
+				<executions>
+					<execution>
+						<phase>initialize</phase>
+						<goals>
+							<goal>run</goal>
+						</goals>
+						<configuration>
+							<target>
+								<delete dir="${project.build.directory}" />
+								<mkdir dir="${project.build.directory}" />
+								<get src="https://tom.vgwort.de/services/1.0/pixelService.wsdl" dest="${project.build.directory}/pixelService.wsdl" />
+								<get src="https://tom.vgwort.de/services/1.3/messageService.wsdl" dest="${project.build.directory}/messageService.wsdl" />
+							</target>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
 			<plugin>
 				<groupId>org.jvnet.jax-ws-commons</groupId>
 				<artifactId>jaxws-maven-plugin</artifactId>
@@ -27,10 +47,11 @@
 							<goal>wsimport</goal>
 						</goals>
 						<configuration>
-							<wsdlUrls>
-								<wsdlUrl>https://tom-test.vgwort.de/services/1.0/pixelService.wsdl</wsdlUrl>
-								<wsdlUrl>https://tom.vgwort.de/services/1.3/messageService.wsdl</wsdlUrl>
-							</wsdlUrls>
+							<wsdlDirectory>${project.build.directory}</wsdlDirectory>
+							<wsdlFiles>
+								<wsdlFile>pixelService.wsdl</wsdlFile>
+								<wsdlFile>messageService.wsdl</wsdlFile>
+							</wsdlFiles>
 							<xnocompile>false</xnocompile>
 						</configuration>
 					</execution>
