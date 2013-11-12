@@ -49,6 +49,11 @@ public class MetisEndpoint
 		return requestHeaders;
 	}
 
+	/**
+	 * generates required request headers, especially the headers for the basic HTTP-Authentication
+	 * 
+	 * @return
+	 */
 	protected Map<String, List<String>> generateRequestHeaders()
 	{
 		Map<String, List<String>> headers = new HashMap<String, List<String>>();
@@ -57,6 +62,12 @@ public class MetisEndpoint
 		return Collections.unmodifiableMap(headers);
 	}
 
+	/**
+	 * adds the wsdlUrl and additional request headers to the BindingProvider
+	 * 
+	 * @param bindingProvider
+	 * @param wsdlUrl
+	 */
 	public void configure(BindingProvider bindingProvider, String wsdlUrl)
 	{
 		Map<String, Object> requestContext = bindingProvider.getRequestContext();
