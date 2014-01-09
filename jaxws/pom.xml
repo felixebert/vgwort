@@ -29,8 +29,10 @@
 							<target>
 								<delete dir="${project.build.directory}" />
 								<mkdir dir="${project.build.directory}" />
-								<get src="https://tom.vgwort.de/services/1.0/pixelService.wsdl" dest="${project.build.directory}/pixelService.wsdl" />
-								<get src="https://tom.vgwort.de/services/1.3/messageService.wsdl" dest="${project.build.directory}/messageService.wsdl" />
+								<mkdir dir="${project.build.directory}/1.0" />
+								<mkdir dir="${project.build.directory}/1.3" />
+								<get src="https://tom.vgwort.de/services/1.0/pixelService.wsdl" dest="${project.build.directory}/1.0/pixelService.wsdl" />
+								<get src="https://tom.vgwort.de/services/1.3/messageService.wsdl" dest="${project.build.directory}/1.3/messageService.wsdl" />
 							</target>
 						</configuration>
 					</execution>
@@ -47,10 +49,11 @@
 							<goal>wsimport</goal>
 						</goals>
 						<configuration>
-							<wsdlDirectory>${project.build.directory}</wsdlDirectory>
+							<wsdlLocation>https://tom.vgwort.de/services/*</wsdlLocation>
+							<wsdlDirectory>target/</wsdlDirectory>
 							<wsdlFiles>
-								<wsdlFile>pixelService.wsdl</wsdlFile>
-								<wsdlFile>messageService.wsdl</wsdlFile>
+								<wsdlFile>1.0/pixelService.wsdl</wsdlFile>
+								<wsdlFile>1.3/messageService.wsdl</wsdlFile>
 							</wsdlFiles>
 							<xnocompile>false</xnocompile>
 						</configuration>
