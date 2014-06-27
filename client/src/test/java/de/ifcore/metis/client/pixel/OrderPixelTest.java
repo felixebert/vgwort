@@ -1,22 +1,21 @@
 package de.ifcore.metis.client.pixel;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
-
-import java.util.List;
-
-import org.junit.Before;
-import org.junit.Test;
-import org.mockito.Mockito;
-
 import de.ifcore.metis.client.exception.MetisException;
 import de.vgwort._1_0.pixelservice.OrderPixelFault;
 import de.vgwort._1_0.pixelservice.xsd.OrderPixelRequest;
 import de.vgwort._1_0.pixelservice.xsd.OrderPixelResponse;
 import de.vgwort._1_0.pixelservice.xsd.Pixel;
 import de.vgwort._1_0.pixelservice.xsd.Pixels;
+import org.junit.Before;
+import org.junit.Test;
+import org.mockito.Mockito;
+
+import java.util.List;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 public class OrderPixelTest
 {
@@ -63,7 +62,7 @@ public class OrderPixelTest
 		response.setPixels(new Pixels());
 		for (Pixel pixel : pixels)
 		{
-			response.getPixels().getPixel().add(pixel);
+			response.getPixels().getPixels().add(pixel);
 		}
 		return response;
 	}

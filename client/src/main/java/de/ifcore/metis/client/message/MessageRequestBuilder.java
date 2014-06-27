@@ -1,25 +1,13 @@
 package de.ifcore.metis.client.message;
 
+import de.vgwort._1_3.messageservice.xsd.*;
+import org.apache.commons.codec.binary.Base64;
+
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.commons.codec.binary.Base64;
-
-import de.vgwort._1_3.messageservice.xsd.Authors;
-import de.vgwort._1_3.messageservice.xsd.Involved;
-import de.vgwort._1_3.messageservice.xsd.MessageText;
-import de.vgwort._1_3.messageservice.xsd.NewMessageRequest;
-import de.vgwort._1_3.messageservice.xsd.ObjectFactory;
-import de.vgwort._1_3.messageservice.xsd.Parties;
-import de.vgwort._1_3.messageservice.xsd.Text;
-import de.vgwort._1_3.messageservice.xsd.Translators;
-import de.vgwort._1_3.messageservice.xsd.Webrange;
-import de.vgwort._1_3.messageservice.xsd.Webranges;
-
 public class MessageRequestBuilder
 {
-	private static final ObjectFactory objectFactory = new ObjectFactory();
-
 	private String privatePixelId;
 
 	private String shortText;
@@ -153,7 +141,7 @@ public class MessageRequestBuilder
 		return messageRequest;
 	}
 
-	public Webranges buildWebranges()
+	protected Webranges buildWebranges()
 	{
 		Webranges webranges = new Webranges();
 		for (String[] urls : this.webranges)
@@ -161,51 +149,51 @@ public class MessageRequestBuilder
 			Webrange webrange = new Webrange();
 			for (String url : urls)
 			{
-				webrange.getUrl().add(url);
+				webrange.getUrls().add(url);
 			}
-			webranges.getWebrange().add(webrange);
+			webranges.getWebranges().add(webrange);
 		}
 		return webranges;
 	}
 
-	public Parties buildParties()
+	protected Parties buildParties()
 	{
 		Parties parties = new Parties();
 
 		if (!this.authors.isEmpty())
 		{
-			parties.getContent().add(objectFactory.createPartiesAuthors(buildAuthors()));
+			parties.setAuthors(buildAuthors());
 		}
 
 		if (!this.translators.isEmpty())
 		{
-			parties.getContent().add(objectFactory.createPartiesTranslators(buildTranslators()));
+			parties.setTranslators(buildTranslators());
 		}
 
 		return parties;
 	}
 
-	public Translators buildTranslators()
+	protected Translators buildTranslators()
 	{
 		Translators translators = new Translators();
 		for (Involved translator : this.translators)
 		{
-			translators.getTranslator().add(translator);
+			translators.getTranslators().add(translator);
 		}
 		return translators;
 	}
 
-	public Authors buildAuthors()
+	protected Authors buildAuthors()
 	{
 		Authors authors = new Authors();
 		for (Involved author : this.authors)
 		{
-			authors.getAuthor().add(author);
+			authors.getAuthors().add(author);
 		}
 		return authors;
 	}
 
-	public MessageText buildMessageText()
+	protected MessageText buildMessageText()
 	{
 		MessageText messageText = new MessageText();
 		messageText.setShorttext(shortText);
@@ -215,7 +203,7 @@ public class MessageRequestBuilder
 		return messageText;
 	}
 
-	public Text buildText()
+	protected Text buildText()
 	{
 		Text text = new Text();
 		if (plainText != null)

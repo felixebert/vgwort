@@ -1,22 +1,17 @@
 package de.ifcore.metis.client.message;
 
 import de.vgwort._1_3.messageservice.xsd.Involved;
-import de.vgwort._1_3.messageservice.xsd.ObjectFactory;
 
 public class InvolvedBuilder
 {
-	private static final ObjectFactory objectFactory = new ObjectFactory();
-
 	/**
 	 * chooses the most accurate option to build an {@link Involved} instance - e.g. prefers to set the cardNumber (see
 	 * METIS documentation)
-	 * 
-	 * @param firstName
-	 * @param surName
-	 * @param cardNumber
-	 *            VG WORT Karteinummer
-	 * @param code
-	 *            agency abbreviation
+	 *
+	 * @param firstName  Author firstName
+	 * @param surName    Author surName
+	 * @param cardNumber VG WORT Karteinummer
+	 * @param code       agency abbreviation
 	 * @return instance of {@link Involved} containing cardnumber + firstname + surname OR firstname + surName OR code
 	 */
 	public static Involved build(String firstName, String surName, Integer cardNumber, String code)
@@ -35,22 +30,22 @@ public class InvolvedBuilder
 	public static Involved byCode(String code)
 	{
 		Involved involved = new Involved();
-		involved.getContent().add(objectFactory.createInvolvedCode(code));
+		involved.setCode(code);
 		return involved;
 	}
 
 	public static Involved byName(String firstName, String surName)
 	{
 		Involved involved = new Involved();
-		involved.getContent().add(objectFactory.createInvolvedFirstName(firstName));
-		involved.getContent().add(objectFactory.createInvolvedSurName(surName));
+		involved.setFirstName(firstName);
+		involved.setSurName(surName);
 		return involved;
 	}
 
 	public static Involved byCardnumber(String firstName, String surName, Integer cardNumber)
 	{
 		Involved involved = byName(firstName, surName);
-		involved.getContent().add(objectFactory.createInvolvedCardNumber(cardNumber));
+		involved.setCardNumber(cardNumber);
 		return involved;
 	}
 

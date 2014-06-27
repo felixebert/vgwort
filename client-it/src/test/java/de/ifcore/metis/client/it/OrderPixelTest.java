@@ -1,16 +1,15 @@
 package de.ifcore.metis.client.it;
 
-import static org.junit.Assert.assertEquals;
-
-import java.util.List;
-
-import org.junit.Before;
-import org.junit.Test;
-
 import de.ifcore.metis.client.MetisEndpoint;
 import de.ifcore.metis.client.exception.MetisException;
 import de.ifcore.metis.client.pixel.Pixel;
 import de.ifcore.metis.client.pixel.PixelClient;
+import org.junit.Before;
+import org.junit.Test;
+
+import java.util.List;
+
+import static org.junit.Assert.assertEquals;
 
 public class OrderPixelTest extends AbstractClientTest
 {

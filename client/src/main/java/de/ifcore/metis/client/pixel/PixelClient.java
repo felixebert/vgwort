@@ -1,14 +1,5 @@
 package de.ifcore.metis.client.pixel;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-
-import javax.xml.ws.WebServiceException;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import de.ifcore.metis.client.AbstractServiceClient;
 import de.ifcore.metis.client.MetisEndpoint;
 import de.ifcore.metis.client.exception.MetisException;
@@ -16,6 +7,13 @@ import de.vgwort._1_0.pixelservice.OrderPixelFault;
 import de.vgwort._1_0.pixelservice.PixelService;
 import de.vgwort._1_0.pixelservice.xsd.OrderPixelRequest;
 import de.vgwort._1_0.pixelservice.xsd.OrderPixelResponse;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import javax.xml.ws.WebServiceException;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 public class PixelClient extends AbstractServiceClient<de.vgwort._1_0.pixelservice.Pixel>
 {
@@ -55,7 +53,7 @@ public class PixelClient extends AbstractServiceClient<de.vgwort._1_0.pixelservi
 			OrderPixelResponse response = port.orderPixel(request);
 
 			List<Pixel> pixels = new ArrayList<>();
-			for (de.vgwort._1_0.pixelservice.xsd.Pixel pixelEntry : response.getPixels().getPixel())
+			for (de.vgwort._1_0.pixelservice.xsd.Pixel pixelEntry : response.getPixels().getPixels())
 			{
 				Pixel pixel = new Pixel(pixelEntry.getPublicIdentificationId(),
 						pixelEntry.getPrivateIdentificationId(), response.getDomain());
